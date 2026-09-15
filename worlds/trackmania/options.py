@@ -148,9 +148,12 @@ class MapMinimumLength(Range):
     range_end = 2000
     default = 0
 
-class HasAward(Toggle):
-    """Enable to guarantee every rolled track will have at least one award on Trackmania Exchange."""
-    display_name = "Must Be Awarded"
+class MinimumAwardCount(Range):
+    """Minimum amount of awards a random rolled map needs on Trackmania Exchange."""
+    display_name = "Minimum Award Count"
+    range_start = 0
+    range_end = 10
+    default = 1
 
 class InTotd(Toggle):
     """Enable to guarantee every rolled track has been a Track of the Day (TOTD)."""
@@ -187,7 +190,7 @@ class DisableGoldMedals(Toggle):
 
 class DisableAuthorLocations(Toggle):
     """Disable Author Medal times from counting as locations."""
-    display_name = "Remove Bronze Locations"
+    display_name = "Remove Author Locations"
 
 # Schema for custom series options below.
 LuaBool = Or(bool, And(int, lambda v: v in (0, 1)))
@@ -207,7 +210,7 @@ class CustomSeries(OptionDict):
     - "map_etags"
     - "map_tags_inclusive"
     - "difficulties"
-    - "has_award"
+    - "min_award_count"
     - "in_totd"
 
     In addition, the following custom search parameters are available:
@@ -225,7 +228,7 @@ class CustomSeries(OptionDict):
     ```
     custom_series:
       all:
-        has_award: true
+        min_award_count: 2
         in_totd: true
       1:
         map_tags: ["LOL"]
@@ -244,9 +247,10 @@ class CustomSeries(OptionDict):
     Remake,Mixed,Nascar,SpeedDrift,Minigame,Obstacle,Transitional,Grass,
     Backwards,EngineOff,Signature,Royal,Water,Plastic,Arena,Freestyle,
     Educational,Sausage,Bobsleigh,Pathfinding,FlagRush,Puzzle,Freeblocking,
-    Altered Nadeo,SnowCar,Wood,Underwater,Turtle,RallyCar,MixedCar,
-    Bugslide,Mudslide,Moving Items,DesertCar,SpeedMapping,NoBrake,CruiseControl,
-    NoSteer,RPG-Immersive,Pipes,Magnet,NoGrip
+    Altered Nadeo,SnowCar,Wood,Underwater,Turtle,RallyCar,MixedCar,Bugslide,
+    Mudslide,Moving Items,DesertCar,SpeedMapping,NoBrake,CruiseControl,NoSteer,
+    RPG-Immersive,Pipes,Magnet,NoGrip,Precision,Clones,Custom Camera,Tower,Base Map
+    
     TM2 Exclusive Tags:
     Glass,Sand,Cobblestone,ForceAccel
     """
@@ -270,7 +274,7 @@ class CustomSeries(OptionDict):
             Optional("uploaded_before"): DateTimeString,  # API ref: `uploadedbefore`
             Optional("min_length"): int,  # API ref: `authortimemin`
             Optional("max_length"): int,  # API ref: `authortimemax`
-            Optional("has_award"): LuaBool,  # API ref: `inlatestawardedauthor`
+            Optional("min_award_count"): LuaBool,  # API ref: `awardsmin`
             Optional("in_totd"): LuaBool, # API ref: `intotd`
             Optional("has_replay"): LuaBool,  # API ref: `inhasreplay`
         }
@@ -299,7 +303,7 @@ class TrackmaniaOptions(PerGameCommonOptions):
     map_max_length: MapMaximumLength
     map_min_length: MapMinimumLength
     difficulties: MapDifficulties
-    has_award: HasAward
+    min_award_count: MinimumAwardCount
     in_totd: InTotd
     disable_bronze_locations: DisableBronzeLocations
     disable_bronze_medals: DisableBronzeMedals
@@ -315,7 +319,7 @@ option_groups: dict[str, list[Any]] = {
     "Generation":[ProgressionBalancing, Accessibility],
     "Difficulty":[TargetTime, SkipPercentage, DiscountPercentage, DiscountAmount, MapDifficulties],
     "Campaign Configuration":[MedalRequirement, ProgressiveTargetTimeChance, SeriesNumber, SeriesMinimumMapNumber, SeriesMaximumMapNumber],
-    "Map Search Settings":[MapTags, MapETags, MapTagsInclusive, RandomSeriesTags, HasAward, InTotd, MapMinimumLength, MapMaximumLength],
+    "Map Search Settings":[MapTags, MapETags, MapTagsInclusive, RandomSeriesTags, MinimumAwardCount, InTotd, MapMinimumLength, MapMaximumLength],
     "Advanced":[FirstSeriesSize, DisableBronzeLocations, DisableBronzeMedals, DisableSilverLocations, DisableSilverMedals, DisableGoldLocations, DisableGoldMedals, DisableAuthorLocations, CustomSeries]#, PlandoItems]
 }
 

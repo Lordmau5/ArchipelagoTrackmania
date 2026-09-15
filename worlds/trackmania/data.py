@@ -2,22 +2,26 @@
 base_id = 24000
 base_filler_id = 24500
 
-tmx_map_tags = ["Race","FullSpeed","Tech","RPG","LOL","Press Forward","SpeedTech","MultiLap",
-               "Offroad","Trial","ZrT","SpeedFun","Competitive","Ice","Dirt","Stunt","Reactor",
-               "Platform","Slow Motion","Bumper","Fragile","Scenery","Kacky","Endurance","Mini",
-               "Remake","Mixed","Nascar","SpeedDrift","Minigame","Obstacle","Transitional","Grass",
-               "Backwards","EngineOff","Signature","Royal","Water","Plastic","Arena","Freestyle",
-               "Educational","Sausage","Bobsleigh","Pathfinding","FlagRush","Puzzle","Freeblocking",
-               "Altered Nadeo","SnowCar","Wood","Underwater","Turtle","RallyCar","MixedCar",
-               "Bugslide","Mudslide","Moving Items","DesertCar","SpeedMapping","NoBrake","CruiseControl",
-               "NoSteer","RPG-Immersive","Pipes","Magnet","NoGrip",
+tmx_map_tags = ["Race","FullSpeed","Tech","RPG","LOL","Press Forward",
+                "SpeedTech","MultiLap","Offroad","Trial","ZrT","SpeedFun",
+                "Competitive","Ice","Dirt","Stunt","Reactor","Platform","Slow Motion",
+                "Bumper","Fragile","Scenery","Kacky","Endurance","Mini","Remake",
+                "Mixed","Nascar","SpeedDrift","Minigame","Obstacle","Transitional",
+                "Grass","Backwards","EngineOff","Signature","Royal","Water","Plastic",
+                "Arena","Freestyle","Educational","Sausage","Bobsleigh","Pathfinding",
+                "FlagRush","Puzzle","Freeblocking","Altered Nadeo","SnowCar","Wood",
+                "Underwater","Turtle","RallyCar","MixedCar","Bugslide","Mudslide",
+                "Moving Items","DesertCar","SpeedMapping","NoBrake","CruiseControl",
+                "NoSteer","RPG-Immersive","Pipes","Magnet","NoGrip","Precision",
+                "Clones","Custom Camera","Tower","Base Map",
+
                 #tm2 exclusive tags
                 "Glass","Sand","Cobblestone","ForceAccel"
 ]
 
 tmx_map_difficulties = ["Beginner","Intermediate","Advanced","Expert","Lunatic","Impossible"]
 
-tmx_default_excluded_tags = ["Kacky", "Royal", "Arena", "FlagRush", "Puzzle"]
+tmx_default_excluded_tags = ["Kacky", "Royal", "Arena", "FlagRush", "Puzzle", "Tower", "Base Map"]
 
 tmx_default_map_difficulties = ["Beginner","Intermediate","Advanced","Expert"]
 
