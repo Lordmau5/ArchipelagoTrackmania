@@ -96,6 +96,9 @@ class TrackmaniaWorld(World):
             search_criteria.update(self.options.custom_series.value.get(series, {}))
 
             # Fill in global defaults and settings
+            if "map_environments" not in search_criteria:
+                search_criteria["map_environments"] = list(self.options.map_environments.value)
+
             if "map_tags" not in search_criteria:
                 tags: list = list(self.options.map_tags.value)
                 if self.options.random_series_tags.value > 0 and len(tags) > 1:

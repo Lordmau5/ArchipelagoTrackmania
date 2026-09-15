@@ -3,7 +3,7 @@ from datetime import datetime  # for custom_series: uploaded_before and uploaded
 from schema import Schema, And, Or, Optional  # for custom series validation
 from typing import Any
 from Options import Toggle, Range, OptionSet, OptionDict, PerGameCommonOptions, OptionGroup, ProgressionBalancing, Accessibility, Visibility#, PlandoItems
-from .data import get_all_map_tags, get_excluded_map_tags, get_all_map_difficulties, get_default_map_difficulties
+from .data import get_all_environments, get_all_map_tags, get_excluded_map_tags, get_all_map_difficulties, get_default_map_difficulties
 
 #https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/options%20api.md
 
@@ -109,6 +109,30 @@ class ProgressiveTargetTimeChance(Range):
     range_end = 100
     default = 20
 
+class MapEnvironments(OptionSet):
+    """
+    Environments that maps from Trackmania Exchange are allowed to have.
+    If none are selected it will pick a map based on the installed environments / title packs.
+
+    This only applies to TM2 (and potentially TM United Forever in the future) and has no effect on TM2020.
+    If you do not have one of these environments available then the random map picker will not include it.
+
+    For TM2 specifically the base environments are the official title packs by Nadeo:
+    Canyon, Stadium, Valley and Lagoon
+
+    There are some extra ones that will need to be installed from the ManiaPlanet store:
+    Desert  => TMOne Speed
+    Snow    => TMOne Alpine
+    Bay     => TMOne Bay
+    Island  => TM² Island
+    Coast   => Currently unused
+    Rally   => Currently unused
+    Mix     => TMAll
+    """
+    display_name = "Allowed TM2 Environments"
+    valid_keys = get_all_environments()
+    default = get_all_environments()
+
 class MapTags(OptionSet):
     """Tags that maps from Trackmania Exchange are allowed to have. If none of these tags are checked, 
     it will default to allowing all tags."""
@@ -195,6 +219,7 @@ class DisableAuthorLocations(Toggle):
 # Schema for custom series options below.
 LuaBool = Or(bool, And(int, lambda v: v in (0, 1)))
 MapIdList = And([int], lambda v: len(v) <= 100)
+EnvironmentList = And([And(str, lambda v: v in get_all_environments())], lambda v: len(v) <= 100)
 TagList = And([And(str, lambda v: v in get_all_map_tags())], lambda v: len(v) <= 100)
 DifficultyList = And([And(str, lambda v: v in get_all_map_difficulties())], lambda v: len(v) <= 4)
 DateTimeString = And(str, lambda v: datetime.fromisoformat(v))
@@ -206,6 +231,7 @@ class CustomSeries(OptionDict):
     options and search parameters. The series number may also be "all", to customize all series at once.
 
     The following options may be redefined on a per-series basis to override them:
+    - "map_environments"
     - "map_tags"
     - "map_etags"
     - "map_tags_inclusive"
@@ -260,6 +286,7 @@ class CustomSeries(OptionDict):
     schema = Schema({
         Optional(Or("all", And(int, lambda v: 1 <= v <= SeriesNumber.range_end))): {
             # Duplicates of options normally present, for overriding
+            Optional("map_environments"): EnvironmentList,
             Optional("map_tags"): TagList,
             Optional("map_etags"): TagList,
             Optional("map_tags_inclusive"): LuaBool,
@@ -297,6 +324,7 @@ class TrackmaniaOptions(PerGameCommonOptions):
     discount_percentage: DiscountPercentage
     discount_amount: DiscountAmount
     target_progression_chance : ProgressiveTargetTimeChance
+    map_environments: MapEnvironments
     map_tags: MapTags
     map_tags_inclusive: MapTagsInclusive
     map_etags: MapETags
@@ -319,7 +347,7 @@ option_groups: dict[str, list[Any]] = {
     "Generation":[ProgressionBalancing, Accessibility],
     "Difficulty":[TargetTime, SkipPercentage, DiscountPercentage, DiscountAmount, MapDifficulties],
     "Campaign Configuration":[MedalRequirement, ProgressiveTargetTimeChance, SeriesNumber, SeriesMinimumMapNumber, SeriesMaximumMapNumber],
-    "Map Search Settings":[MapTags, MapETags, MapTagsInclusive, RandomSeriesTags, MinimumAwardCount, InTotd, MapMinimumLength, MapMaximumLength],
+    "Map Search Settings":[MapEnvironments, MapTags, MapETags, MapTagsInclusive, RandomSeriesTags, MinimumAwardCount, InTotd, MapMinimumLength, MapMaximumLength],
     "Advanced":[FirstSeriesSize, DisableBronzeLocations, DisableBronzeMedals, DisableSilverLocations, DisableSilverMedals, DisableGoldLocations, DisableGoldMedals, DisableAuthorLocations, CustomSeries]#, PlandoItems]
 }
 

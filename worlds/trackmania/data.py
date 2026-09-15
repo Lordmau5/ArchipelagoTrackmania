@@ -2,6 +2,20 @@
 base_id = 24000
 base_filler_id = 24500
 
+tmx_environments = [
+    "Canyon",
+    "Stadium",
+    "Valley",
+    "Lagoon",
+    "Desert", # TMOne Speed
+    "Snow", # TMOne Alpine
+    "Bay", # TMOne Bay
+    "Island", # TM2 Island
+    "Coast", # No TM2 Title Pack Yet
+    "Rally", # No TM2 Title Pack Yet
+    "Mix" # TMAll
+]
+
 tmx_map_tags = ["Race","FullSpeed","Tech","RPG","LOL","Press Forward",
                 "SpeedTech","MultiLap","Offroad","Trial","ZrT","SpeedFun",
                 "Competitive","Ice","Dirt","Stunt","Reactor","Platform","Slow Motion",
@@ -160,6 +174,9 @@ filler_item_names = [
 
 
 ]
+
+def get_all_environments() -> list[str]:
+    return tmx_environments
 
 def get_all_map_tags() -> list[str]:
     return tmx_map_tags
