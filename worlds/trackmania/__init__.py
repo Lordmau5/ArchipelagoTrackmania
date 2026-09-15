@@ -118,8 +118,8 @@ class TrackmaniaWorld(World):
             if "min_length" not in search_criteria:
                 search_criteria["min_length"] = self.options.map_min_length.value * 1000
 
-            if "has_award" not in search_criteria:
-                search_criteria["has_award"] = self.options.has_award.value
+            if "min_award_count" not in search_criteria:
+                search_criteria["min_award_count"] = self.options.min_award_count.value
 
             if "in_totd" not in search_criteria:
                 search_criteria["in_totd"] = self.options.in_totd.value
