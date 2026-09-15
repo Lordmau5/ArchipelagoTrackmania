@@ -1,0 +1,33 @@
+name: Build Trackmania APWorld
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python ModuleUpdate.py --yes
+
+    - name: Run Build Command
+      run: |
+        python Launcher.py "Build APWorlds" -- "Trackmania"
+
+    - name: Upload APWorld Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: trackmania
+        path: build/apworlds/trackmania.apworld
