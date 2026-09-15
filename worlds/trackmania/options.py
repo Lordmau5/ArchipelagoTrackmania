@@ -244,9 +244,10 @@ class CustomSeries(OptionDict):
     Remake,Mixed,Nascar,SpeedDrift,Minigame,Obstacle,Transitional,Grass,
     Backwards,EngineOff,Signature,Royal,Water,Plastic,Arena,Freestyle,
     Educational,Sausage,Bobsleigh,Pathfinding,FlagRush,Puzzle,Freeblocking,
-    Altered Nadeo,SnowCar,Wood,Underwater,Turtle,RallyCar,MixedCar,
-    Bugslide,Mudslide,Moving Items,DesertCar,SpeedMapping,NoBrake,CruiseControl,
-    NoSteer,RPG-Immersive,Pipes,Magnet,NoGrip
+    Altered Nadeo,SnowCar,Wood,Underwater,Turtle,RallyCar,MixedCar,Bugslide,
+    Mudslide,Moving Items,DesertCar,SpeedMapping,NoBrake,CruiseControl,NoSteer,
+    RPG-Immersive,Pipes,Magnet,NoGrip,Precision,Clones,Custom Camera,Tower,Base Map
+    
     TM2 Exclusive Tags:
     Glass,Sand,Cobblestone,ForceAccel
     """
